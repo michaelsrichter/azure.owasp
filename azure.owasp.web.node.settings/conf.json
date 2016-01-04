@@ -1,0 +1,4 @@
+﻿{
+  "CONF_MESSAGE": "This message is from a configuration file deployed with the website.",
+  "MESSAGE_1": "This message 1 from the configuration file."
+}

@@ -1,0 +1,74 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "azure.owasp.modsecurity", "azure.owasp.modsecurity\azure.owasp.modsecurity.csproj", "{F9788D12-3A32-4B08-8F7F-1938F4BE7DF5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{3803B5E3-2243-46A4-8B6D-D9B53F0F346C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{51455636-FFEA-4AB0-B0A3-D81DC30B9095}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Scripts\Deploy-AzureResourceGroup-2.ps1 = PublishScripts\Scripts\Deploy-AzureResourceGroup-2.ps1
+		PublishScripts\Scripts\Deploy-AzureResourceGroup-3.ps1 = PublishScripts\Scripts\Deploy-AzureResourceGroup-3.ps1
+		PublishScripts\Scripts\Deploy-AzureResourceGroup.ps1 = PublishScripts\Scripts\Deploy-AzureResourceGroup.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{F372622D-E1F7-4930-8529-28A53CF6A85A}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Templates\azureowaspmodsecurity.json = PublishScripts\Templates\azureowaspmodsecurity.json
+		PublishScripts\Templates\azureowaspmodsecurity.param.dev.json = PublishScripts\Templates\azureowaspmodsecurity.param.dev.json
+		PublishScripts\Templates\azureowaspwebadgroups.json = PublishScripts\Templates\azureowaspwebadgroups.json
+		PublishScripts\Templates\azureowaspwebadgroups.param.dev.json = PublishScripts\Templates\azureowaspwebadgroups.param.dev.json
+		PublishScripts\Templates\azureowaspwebnotsecure.json = PublishScripts\Templates\azureowaspwebnotsecure.json
+		PublishScripts\Templates\azureowaspwebnotsecure.param.dev.json = PublishScripts\Templates\azureowaspwebnotsecure.param.dev.json
+	EndProjectSection
+EndProject
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "azure.owasp.waf-lb-arm", "azure.owasp.waf-lb-arm\azure.owasp.waf-lb-arm.deployproj", "{E81A7B8D-A7D6-44B1-BE99-BE53B66885D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "azure.owasp.web.notsecure", "azure.owasp.web.notsecure\azure.owasp.web.notsecure.csproj", "{56F3D85A-FE28-43CF-A249-DE4DE1479A9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "azure.owasp.web.adgroups", "azure.owasp.web.adgroups\azure.owasp.web.adgroups.csproj", "{B0D3C7CF-43A0-4127-B9B9-0E5F704B1ADE}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "azure.owasp.web.node.settings", "azure.owasp.web.node.settings\azure.owasp.web.node.settings.njsproj", "{FE477093-8655-41CB-A60F-A3A964BE0E2A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deck", "Deck", "{7088BFA9-C8DF-4395-B3C2-6EDB490E59EE}"
+	ProjectSection(SolutionItems) = preProject
+		OWASP_and_Cloud_Security1.1.pdf = OWASP_and_Cloud_Security1.1.pdf
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F9788D12-3A32-4B08-8F7F-1938F4BE7DF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9788D12-3A32-4B08-8F7F-1938F4BE7DF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9788D12-3A32-4B08-8F7F-1938F4BE7DF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9788D12-3A32-4B08-8F7F-1938F4BE7DF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E81A7B8D-A7D6-44B1-BE99-BE53B66885D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E81A7B8D-A7D6-44B1-BE99-BE53B66885D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E81A7B8D-A7D6-44B1-BE99-BE53B66885D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E81A7B8D-A7D6-44B1-BE99-BE53B66885D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56F3D85A-FE28-43CF-A249-DE4DE1479A9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56F3D85A-FE28-43CF-A249-DE4DE1479A9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56F3D85A-FE28-43CF-A249-DE4DE1479A9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56F3D85A-FE28-43CF-A249-DE4DE1479A9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0D3C7CF-43A0-4127-B9B9-0E5F704B1ADE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0D3C7CF-43A0-4127-B9B9-0E5F704B1ADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0D3C7CF-43A0-4127-B9B9-0E5F704B1ADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0D3C7CF-43A0-4127-B9B9-0E5F704B1ADE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE477093-8655-41CB-A60F-A3A964BE0E2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE477093-8655-41CB-A60F-A3A964BE0E2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE477093-8655-41CB-A60F-A3A964BE0E2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE477093-8655-41CB-A60F-A3A964BE0E2A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{51455636-FFEA-4AB0-B0A3-D81DC30B9095} = {3803B5E3-2243-46A4-8B6D-D9B53F0F346C}
+		{F372622D-E1F7-4930-8529-28A53CF6A85A} = {3803B5E3-2243-46A4-8B6D-D9B53F0F346C}
+	EndGlobalSection
+EndGlobal

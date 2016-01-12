@@ -3,15 +3,14 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <Name>azure.owasp.web.node.settings</Name>
-    <RootNamespace>azure.owasp.web.node.settings</RootNamespace>
-    <NameOfLastUsedPublishProfile>azureowaspwebnodesettings - Web Deploy</NameOfLastUsedPublishProfile>
+    <Name>azure.owasp.waf.app</Name>
+    <RootNamespace>azure.owasp.waf.app</RootNamespace>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>fe477093-8655-41cb-a60f-a3a964be0e2a</ProjectGuid>
+    <ProjectGuid>8bd67712-733b-404f-91c9-086f9c191a40</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <StartupFile>bin\www</StartupFile>
     <SearchPath>
@@ -35,10 +34,9 @@
     <Compile Include="routes\index.js" />
     <Compile Include="routes\users.js" />
     <Compile Include="bin\www" />
-    <None Include="azureowaspwebnodesettings - Web Deploy.pubxml" />
-    <Content Include="conf.json" />
     <Content Include="package.json" />
     <Content Include="public\stylesheets\style.styl" />
+    <Content Include="README.md" />
     <Content Include="views\index.jade" />
     <Content Include="views\layout.jade" />
     <Content Include="views\error.jade" />

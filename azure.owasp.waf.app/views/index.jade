@@ -1,0 +1,13 @@
+﻿extends layout
+
+block content
+  h1= title
+  h2 Host name: #{hostName}"
+  p Request host is "#{requestHost}"
+
+    form(name="add-estimation", method="post")
+        div.input
+            span.label Title
+            input(type="text", name="title")
+        div.actions
+            input(type="submit", value="add")

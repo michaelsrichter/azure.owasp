@@ -37,6 +37,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deck", "Deck", "{7088BFA9-C
 		OWASP_and_Cloud_Security1.1.pdf = OWASP_and_Cloud_Security1.1.pdf
 	EndProjectSection
 EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "azure.owasp.waf.app", "azure.owasp.waf.app\azure.owasp.waf.app.njsproj", "{8BD67712-733B-404F-91C9-086F9C191A40}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{FE477093-8655-41CB-A60F-A3A964BE0E2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE477093-8655-41CB-A60F-A3A964BE0E2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE477093-8655-41CB-A60F-A3A964BE0E2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BD67712-733B-404F-91C9-086F9C191A40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BD67712-733B-404F-91C9-086F9C191A40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BD67712-733B-404F-91C9-086F9C191A40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BD67712-733B-404F-91C9-086F9C191A40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

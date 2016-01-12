@@ -12,7 +12,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>8bd67712-733b-404f-91c9-086f9c191a40</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>bin\www</StartupFile>
+    <StartupFile>bin-dir\www</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -33,7 +33,7 @@
     <Compile Include="app.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="routes\users.js" />
-    <Compile Include="bin\www" />
+    <Compile Include="bin-dir\www" />
     <Content Include="package.json" />
     <Content Include="public\stylesheets\style.styl" />
     <Content Include="README.md" />
@@ -42,7 +42,7 @@
     <Content Include="views\error.jade" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="bin\" />
+    <Folder Include="bin-dir\" />
     <Folder Include="public\" />
     <Folder Include="public\images\" />
     <Folder Include="public\javascripts\" />
@@ -53,10 +53,10 @@
   <ItemGroup>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config" />
-    <Content Include="bin\ChangeConfig.ps1" />
-    <Content Include="bin\download.ps1" />
-    <Content Include="bin\setup_web.cmd" />
-    <Content Include="bin\node.cmd" />
+    <Content Include="bin-dir\ChangeConfig.ps1" />
+    <Content Include="bin-dir\download.ps1" />
+    <Content Include="bin-dir\setup_web.cmd" />
+    <Content Include="bin-dir\node.cmd" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />

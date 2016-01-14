@@ -34,9 +34,12 @@
     </None>
     <Content Include="Scripts\Deploy-AzureResourceGroup.ps1" />
     <Content Include="Templates\LoadBalancedBarracudaWAFAndApp.json" />
+    <None Include="Templates\LoadBalancedBarracudaNetwork.json" />
+    <None Include="Templates\LoadBalancedBarracudaWAF.json" />
     <None Include="Templates\LoadBalancedBarracudaWAFAndApp.param.dev.json" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Templates\LoadBalancedBarracudaWAFAndAppWithNode.json" />
     <None Include="Tools\AzCopy.exe" />
     <None Include="Tools\Microsoft.Data.Edm.dll">
       <Visible>False</Visible>

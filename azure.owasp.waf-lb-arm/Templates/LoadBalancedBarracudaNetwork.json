@@ -1,0 +1,297 @@
+﻿{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "globalPrefix": {
+      "type": "string",
+      "metadata": {
+        "description": "global Prefix attached to resources in this deployment"
+      }
+    },
+    "dnsNameForApplication": {
+      "type": "string",
+      "metadata": {
+        "description": "dns name for the application"
+      }
+    },
+    "externalLBName": {
+      "type": "string",
+      "defaultValue": "external-lb",
+      "metadata": {
+        "description": "External Load Balancer name"
+      }
+    },
+    "internalLBName": {
+      "type": "string",
+      "defaultValue": "internal-lb",
+      "metadata": {
+        "description": "Internal Load Balancer name"
+      }
+    },
+    "vnetName": {
+      "type": "string",
+      "defaultValue": "owasp-vnet",
+      "metadata": {
+        "description": "VNET name"
+      }
+    },
+    "wafSubnetName": {
+      "type": "string",
+      "defaultValue": "waf-subnet",
+      "metadata": {
+        "description": "Name of Subnet"
+      }
+    },
+    "webSubnetName": {
+      "type": "string",
+      "defaultValue": "web-subnet",
+      "metadata": {
+        "description": "Name of Subnet"
+      }
+    },
+    "backendPortNumber": {
+      "type": "int",
+      "defaultValue": 3000,
+      "metadata": {
+        "description": "Name of Subnet"
+      }
+    }
+  },
+  "variables": {
+    "externalLoadbalancerName": "[concat(parameters('globalPrefix'), 'externalLoadbalancer')]",
+    "internalLoadbalancerName": "[concat(parameters('globalPrefix'), 'internalLoadbalancer')]",
+    "addressPrefix": "10.0.0.0/16",
+    "wafSubnetPrefix": "10.0.0.0/28",
+    "webSubnetPrefix": "10.0.0.24/28",
+    "publicIPAddressType": "Dynamic",
+    "publicIPAddressName": "[concat(parameters('globalPrefix'), 'publicIPAddress')]",
+    "vnetName" :"[concat(parameters('globalPrefix'), parameters('vnetName'))]",
+    "vnetRef": "[resourceId('Microsoft.Network/virtualNetworks', variables('vnetName'))]",
+    "wafSubnetRef": "[concat(variables('vnetRef'),'/subnets/',parameters('wafSubnetName'))]",
+    "webSubnetRef": "[concat(variables('vnetRef'),'/subnets/',parameters('webSubnetName'))]",
+    "publicIPAddressRef": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]",
+    "externalLoadBalancerRef": "[resourceId('Microsoft.Network/loadBalancers',variables('externalLoadbalancerName'))]",
+    "internalLoadBalancerRef": "[resourceId('Microsoft.Network/loadBalancers',variables('internalLoadbalancerName'))]",
+    "wafFrontEndIPConfigID": "[concat(variables('externalLoadBalancerRef'),'/frontendIPConfigurations/LoadBalancerFrontEnd')]",
+    "webFrontEndIPConfigID": "[concat(variables('internalLoadBalancerRef'),'/frontendIPConfigurations/LoadBalancerFrontEnd')]",
+    "externalLoadBalancerBackendPoolRef": "[concat(variables('externalLoadBalancerRef'),'/backendAddressPools/BackendPool1')]",
+    "internalLoadBalancerBackendPoolRef": "[concat(variables('internalLoadBalancerRef'),'/backendAddressPools/BackendPool1')]",
+    "externalLBProbeId": "[concat(variables('externalLoadBalancerRef'),'/probes/tcpProbe')]",
+    "internalLBProbeId": "[concat(variables('internalLoadBalancerRef'),'/probes/tcpProbe')]"
+  },
+  "resources": [
+    {
+      "apiVersion": "2015-05-01-preview",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[variables('publicIPAddressName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "publicIPAllocationMethod": "[variables('publicIPAddressType')]",
+        "dnsSettings": {
+          "domainNameLabel": "[parameters('dnsNameForApplication')]"
+        }
+      }
+    },
+    {
+      "apiVersion": "2015-05-01-preview",
+      "type": "Microsoft.Network/virtualNetworks",
+      "name": "[variables('vnetName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[variables('addressPrefix')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[parameters('wafSubnetName')]",
+            "properties": {
+              "addressPrefix": "[variables('wafSubnetPrefix')]"
+            }
+          },
+          {
+            "name": "[parameters('webSubnetName')]",
+            "properties": {
+              "addressPrefix": "[variables('webSubnetPrefix')]"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "2015-05-01-preview",
+      "name": "[variables('externalLoadbalancerName')]",
+      "type": "Microsoft.Network/loadBalancers",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[variables('publicIPAddressRef')]",
+        "[variables('vnetRef')]"
+      ],
+      "properties": {
+        "frontendIPConfigurations": [
+          {
+            "name": "LoadBalancerFrontEnd",
+            "properties": {
+              "publicIPAddress": {
+                "id": "[variables('publicIPAddressRef')]"
+              }
+            }
+          }
+        ],
+        "backendAddressPools": [
+          {
+            "name": "BackendPool1"
+          }
+        ],
+        "inboundNatRules": [
+          {
+            "name": "Manage-VM0",
+            "properties": {
+              "frontendIPConfiguration": {
+                "id": "[variables('wafFrontEndIPConfigID')]"
+              },
+              "protocol": "tcp",
+              "frontendPort": 8000,
+              "backendPort": 8000,
+              "enableFloatingIP": false
+            }
+          },
+          {
+            "name": "Manage-VM1",
+            "properties": {
+              "frontendIPConfiguration": {
+                "id": "[variables('wafFrontEndIPConfigID')]"
+              },
+              "protocol": "tcp",
+              "frontendPort": 8001,
+              "backendPort": 8000,
+              "enableFloatingIP": false
+            }
+          }
+        ],
+        "loadBalancingRules": [
+          {
+            "name": "externallbrule",
+            "properties": {
+              "frontendIPConfiguration": {
+                "id": "[variables('wafFrontEndIPConfigID')]"
+              },
+              "backendAddressPool": {
+                "id": "[variables('externalLoadBalancerBackendPoolRef')]"
+              },
+              "protocol": "Tcp",
+              "frontendPort": 80,
+              "backendPort": 80,
+              "enableFloatingIP": false,
+              "idleTimeoutInMinutes": 5,
+              "probe": {
+                "id": "[variables('externalLBProbeId')]"
+              }
+            }
+          }
+        ],
+        "probes": [
+          {
+            "name": "tcpProbe",
+            "properties": {
+              "protocol": "Tcp",
+              "port": 80,
+              "intervalInSeconds": 5,
+              "numberOfProbes": 2
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "2015-05-01-preview",
+      "type": "Microsoft.Network/loadBalancers",
+      "name": "[variables('internalLoadbalancerName')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[variables('vnetRef')]"
+      ],
+      "properties": {
+        "frontendIPConfigurations": [
+          {
+            "properties": {
+              "subnet": {
+                "id": "[variables('webSubnetRef')]"
+              },
+              "privateIPAddress": "10.0.0.20",
+              "privateIPAllocationMethod": "Static"
+            },
+            "name": "LoadBalancerFrontEnd"
+          }
+        ],
+        "backendAddressPools": [
+          {
+            "name": "BackendPool1"
+          }
+        ],
+        "loadBalancingRules": [
+          {
+            "properties": {
+              "frontendIPConfiguration": {
+                "id": "[variables('webFrontEndIPConfigID')]"
+              },
+              "backendAddressPool": {
+                "id": "[variables('internalLoadBalancerBackendPoolRef')]"
+              },
+              "probe": {
+                "id": "[variables('internalLBProbeId')]"
+              },
+              "protocol": "Tcp",
+              "frontendPort": 80,
+              "backendPort": 3000,
+              "idleTimeoutInMinutes": 15
+            },
+            "name": "internallbrule"
+          }
+        ],
+        "probes": [
+          {
+            "properties": {
+              "intervalInSeconds": 15,
+              "numberOfProbes": 2,
+              "port": "[parameters('backendPortNumber')]",
+              "protocol": "Tcp"
+            },
+            "name": "tcpProbe"
+          }
+        ]
+      }
+    }
+  ],
+  "outputs": {
+    "vnetRef": {
+      "type": "string",
+      "value": "[variables('vnetRef')]"
+    },
+    "externalLoadBalancerRef": {
+      "type": "string",
+      "value": "[variables('externalLoadBalancerRef')]"
+    },
+    "internallLoadBalancerRef": {
+      "type": "string",
+      "value": "[variables('internalLoadBalancerRef')]"
+    },
+    "wafSubnetRef": {
+      "type": "string",
+      "value": "[variables('wafSubnetRef')]"
+    },
+    "webSubnetRef": {
+      "type": "string",
+      "value": "[variables('webSubnetRef')]"
+    },
+    "externalLoadBalancerBackendPoolRef": {
+      "type": "string",
+      "value": "[variables('externalLoadBalancerBackendPoolRef')]"
+    },
+    "internalLoadBalancerBackendPoolRef": {
+      "type": "string",
+      "value": "[variables('internalLoadBalancerBackendPoolRef')]"
+    }
+  }
+}

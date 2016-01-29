@@ -2,16 +2,22 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    "dnsNameForApplication": {
+      "type": "string",
+      "metadata": {
+        "description": "dns name for the application"
+      }
+    },
     "globalPrefix": {
       "type": "string",
       "metadata": {
         "description": "global Prefix attached to resources in this deployment"
       }
     },
-    "dnsNameForApplication": {
+    "vnetName": {
       "type": "string",
       "metadata": {
-        "description": "dns name for the application"
+        "description": "VNET name"
       }
     },
     "externalLBName": {
@@ -26,13 +32,6 @@
       "defaultValue": "internal-lb",
       "metadata": {
         "description": "Internal Load Balancer name"
-      }
-    },
-    "vnetName": {
-      "type": "string",
-      "defaultValue": "owasp-vnet",
-      "metadata": {
-        "description": "VNET name"
       }
     },
     "wafSubnetName": {
@@ -53,7 +52,7 @@
       "type": "int",
       "defaultValue": 3000,
       "metadata": {
-        "description": "Name of Subnet"
+        "description": "backend application port number"
       }
     }
   },

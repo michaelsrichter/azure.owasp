@@ -218,7 +218,7 @@
               "subnet": {
                 "id": "[variables('webSubnetRef')]"
               },
-              "privateIPAddress": "10.0.0.20",
+              "privateIPAddress": "10.0.1.10",
               "privateIPAllocationMethod": "Static"
             },
             "name": "LoadBalancerFrontEnd"

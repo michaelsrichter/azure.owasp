@@ -2,16 +2,16 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "dnsNameForApplication": {
-      "type": "string",
-      "metadata": {
-        "description": "dns name for the application"
-      }
-    },
     "globalPrefix": {
       "type": "string",
       "metadata": {
         "description": "global Prefix attached to resources in this deployment"
+      }
+    },
+    "dnsNameForApplication": {
+      "type": "string",
+      "metadata": {
+        "description": "dns name for the application"
       }
     },
     "vnetName": {
@@ -264,6 +264,14 @@
     }
   ],
   "outputs": {
+    "globalPrefix": {
+      "type": "int",
+      "value": "[parameters('globalPrefix')]"
+    },
+    "numberOfInstances": {
+      "type": "int",
+      "value": 2
+    },
     "vnetRef": {
       "type": "string",
       "value": "[variables('vnetRef')]"

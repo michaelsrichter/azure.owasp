@@ -36,8 +36,9 @@
     <Content Include="Templates\LoadBalancedBarracudaWAFAndApp.json" />
     <None Include="Templates\LoadBalanced-Master.json" />
     <None Include="Templates\LoadBalanced-Network.json" />
-    <None Include="Templates\LoadBalancedBarracudaWAF.json" />
+    <None Include="Templates\LoadBalanced-WAF-Barracuda.json" />
     <None Include="Templates\LoadBalanced-Network-Parameters.json" />
+    <None Include="Templates\LoadBalanced-Master-Parameters.dev.json" />
     <None Include="Templates\LoadBalancedBarracudaWAFAndApp.param.dev.json" />
   </ItemGroup>
   <ItemGroup>

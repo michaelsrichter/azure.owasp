@@ -13,6 +13,24 @@
       "metadata": {
         "description": "Network Template Parameters File Locaiton"
       }
+    },
+    "wafTemplate": {
+      "type": "string",
+      "metadata": {
+        "description": "WAF Template File Location"
+      }
+    },
+    "adminUsername": {
+      "type": "string",
+      "metadata": {
+        "description": "Admin username for VMs"
+      }
+    },
+    "adminPassword": {
+      "type": "string",
+      "metadata": {
+        "description": "Admin passwords for VMs"
+      }
     }
   },
   "variables": { },
@@ -30,6 +48,32 @@
         "parametersLink": {
           "uri": "[parameters('networkTemplateParameters')]",
           "contentVersion": "1.0.0.0"
+        }
+      }
+    },
+    {
+      "apiVersion": "2015-01-01",
+      "type": "Microsoft.Resources/deployments",
+      "name": "networkTemplate",
+      "dependsOn": [
+        "[reference('networkTemplate').outputs.vnetRef.value]",
+        "[reference('networkTemplate').outputs.externalLoadBalancerRef.value]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[parameters('wafTemplate')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "globalPrefix": { "value": "[reference('networkTemplate').outputs.globalPrefix.value]" },
+          "numberOfInstances": { "value": 2 },
+          "vnetRef": { "value": "[reference('networkTemplate').outputs.vnetRef.value]" },
+          "loadBalancerRef": { "value": "[reference('networkTemplate').outputs.externalLoadBalancerRef.value]" },
+          "subnetRef": { "value": "[reference('networkTemplate').outputs.wafSubnetRef.value]" },
+          "loadBalancerBackEndAddressPoolRef": { "value": "[reference('networkTemplate').outputs.externalLoadBalancerBackendPoolRef.value]" },
+          "adminUsername": { "value": "[parameters('adminUsername')]" },
+          "adminPassword": { "value": "[parameters('adminPassword')]" }
         }
       }
     }

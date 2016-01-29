@@ -1,0 +1,21 @@
+﻿{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "networkTemplate": {
+      "value": "https://raw.githubusercontent.com/michaelsrichter/azure.owasp/new-templates/azure.owasp.waf-lb-arm/Templates/LoadBalanced-Network.json"
+    },
+    "networkTemplateParameters": {
+      "value": "https://raw.githubusercontent.com/michaelsrichter/azure.owasp/new-templates/azure.owasp.waf-lb-arm/Templates/LoadBalanced-Network-Parameters.json"
+    },
+    "wafTemplate": {
+      "value": "https://raw.githubusercontent.com/michaelsrichter/azure.owasp/new-templates/azure.owasp.waf-lb-arm/Templates/LoadBalanced-WAF-Barracuda.json"
+    },
+    "adminUsername": {
+      "value": "mike"
+    },
+    "adminPassword": {
+      "value": "BarthVader@#$"
+    }
+  }
+}

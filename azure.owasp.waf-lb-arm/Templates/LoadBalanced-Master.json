@@ -1,0 +1,37 @@
+﻿{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "networkTemplate": {
+      "type": "string",
+      "metadata": {
+        "description": "Network Template File Location"
+      }
+    },
+    "networkTemplateParameters": {
+      "type": "string",
+      "metadata": {
+        "description": "Network Template Parameters File Locaiton"
+      }
+    }
+  },
+  "variables": { },
+  "resources": [
+    {
+      "apiVersion": "2015-01-01",
+      "type": "Microsoft.Resources/deployments",
+      "name": "networkTemplate",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[parameters('networkTemplate')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parametersLink": {
+          "uri": "[parameters('networkTemplateParameters')]",
+          "contentVersion": "1.0.0.0"
+        }
+      }
+    }
+  ]
+}

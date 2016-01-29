@@ -153,19 +153,19 @@
     {
       "type": "Microsoft.Compute/availabilitySets",
       "name": "[variables('wafAvailabilitySetName')]",
-      "apiVersion": "2015-05-01-preview",
+      "apiVersion": "2015-06-15",
       "location": "[resourceGroup().location]",
       "properties": { }
     },
     {
       "type": "Microsoft.Compute/availabilitySets",
       "name": "[variables('webAvailabilitySetName')]",
-      "apiVersion": "2015-05-01-preview",
+      "apiVersion": "2015-06-15",
       "location": "[resourceGroup().location]",
       "properties": { }
     },
     {
-      "apiVersion": "2015-05-01-preview",
+      "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/publicIPAddresses",
       "name": "[parameters('publicIPAddressName')]",
       "location": "[resourceGroup().location]",
@@ -177,7 +177,7 @@
       }
     },
     {
-      "apiVersion": "2015-05-01-preview",
+      "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/virtualNetworks",
       "name": "[parameters('vnetName')]",
       "location": "[resourceGroup().location]",
@@ -204,7 +204,7 @@
       }
     },
     {
-      "apiVersion": "2015-05-01-preview",
+      "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[concat(parameters('wafNicNamePrefix'), copyindex())]",
       "location": "[resourceGroup().location]",
@@ -241,7 +241,7 @@
       }
     },
     {
-      "apiVersion": "2015-05-01-preview",
+      "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[concat(parameters('webNicNamePrefix'), copyindex())]",
       "location": "[resourceGroup().location]",
@@ -273,7 +273,7 @@
       }
     },
     {
-      "apiVersion": "2015-05-01-preview",
+      "apiVersion": "2015-06-15",
       "name": "[parameters('externalLBName')]",
       "type": "Microsoft.Network/loadBalancers",
       "location": "[resourceGroup().location]",
@@ -358,7 +358,7 @@
       }
     },
     {
-      "apiVersion": "2015-05-01-preview",
+      "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/loadBalancers",
       "name": "[parameters('internalLBName')]",
       "location": "[resourceGroup().location]",

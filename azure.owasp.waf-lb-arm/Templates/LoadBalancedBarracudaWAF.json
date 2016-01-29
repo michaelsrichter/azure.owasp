@@ -60,12 +60,12 @@
     {
       "type": "Microsoft.Compute/availabilitySets",
       "name": "[parameters('wafAvailabilitySetName')]",
-      "apiVersion": "2015-05-01-preview",
+      "apiVersion": "2015-06-15",
       "location": "[resourceGroup().location]",
       "properties": { }
     },
     {
-      "apiVersion": "2015-05-01-preview",
+      "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[concat(parameters('wafNicNamePrefix'), copyindex())]",
       "location": "[resourceGroup().location]",

@@ -54,11 +54,8 @@
     {
       "apiVersion": "2015-01-01",
       "type": "Microsoft.Resources/deployments",
-      "name": "networkTemplate",
-      "dependsOn": [
-        "[reference('networkTemplate').outputs.vnetRef.value]",
-        "[reference('networkTemplate').outputs.externalLoadBalancerRef.value]"
-      ],
+      "name": "wafTemplate",
+
       "properties": {
         "mode": "Incremental",
         "templateLink": {

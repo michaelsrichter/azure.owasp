@@ -17,13 +17,13 @@
       "type": "string",
       "metadata": { "description": "the vnet resource reference identifier" }
     },
-    "loadBalancerRef": {
-      "type": "string",
-      "metadata": { "description": "the load balancer resource reference identifier" }
-    },
     "subnetRef": {
       "type": "string",
       "metadata": { "description": "the subnet resource reference identifier" }
+    },
+    "loadBalancerRef": {
+      "type": "string",
+      "metadata": { "description": "the load balancer resource reference identifier" }
     },
     "loadBalancerBackEndAddressPoolRef": {
       "type": "string",
@@ -73,10 +73,7 @@
         "name": "nicLoop",
         "count": "[parameters('numberOfInstances')]"
       },
-      "dependsOn": [
-        "[parameters('vnetRef')]",
-        "[parameters('loadBalancerRef')]"
-      ],
+      "dependsOn": [],
       "properties": {
         "ipConfigurations": [
           {

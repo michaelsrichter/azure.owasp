@@ -63,14 +63,14 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "globalPrefix": { "value": "[reference('networkTemplate').outputs.globalPrefix.value]" },
-          "numberOfInstances": { "value": 2 },
-          "vnetRef": { "value": "[reference('networkTemplate').outputs.vnetRef.value]" },
           "loadBalancerRef": { "value": "[reference('networkTemplate').outputs.externalLoadBalancerRef.value]" },
           "subnetRef": { "value": "[reference('networkTemplate').outputs.wafSubnetRef.value]" },
           "loadBalancerBackEndAddressPoolRef": { "value": "[reference('networkTemplate').outputs.externalLoadBalancerBackendPoolRef.value]" },
           "adminUsername": { "value": "[parameters('adminUsername')]" },
-          "adminPassword": { "value": "[parameters('adminPassword')]" }
+          "adminPassword": { "value": "[parameters('adminPassword')]" },
+          "globalPrefix": { "value": "[reference('networkTemplate').outputs.globalPrefix.value]" },
+          "numberOfInstances": { "value": 2 },
+          "vnetRef": { "value": "[reference('networkTemplate').outputs.vnetRef.value]" }
         }
       }
     }

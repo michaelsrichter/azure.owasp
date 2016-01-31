@@ -11,23 +11,23 @@
     "numberOfInstances": {
       "type": "int",
       "defaultValue": 2,
-      "metadata": { "description": "number of instances" }
+      "metadata": { "description": "number of instances XXX" }
     },
     "vnetRef": {
       "type": "string",
-      "metadata": { "description": "the vnet resource reference identifier" }
+      "metadata": { "description": "the vnet resource reference identifier XXX" }
     },
     "subnetRef": {
       "type": "string",
-      "metadata": { "description": "the subnet resource reference identifier" }
+      "metadata": { "description": "the subnet resource reference identifier XXX" }
     },
     "loadBalancerRef": {
       "type": "string",
-      "metadata": { "description": "the load balancer resource reference identifier" }
+      "metadata": { "description": "the load balancer resource reference identifier XXX" }
     },
     "loadBalancerBackEndAddressPoolRef": {
       "type": "string",
-      "metadata": { "description": "the load balancer backend address pool resource reference identifier" }
+      "metadata": { "description": "the load balancer backend address pool resource reference identifier XXX" }
     },
     "adminUsername": {
       "type": "string",

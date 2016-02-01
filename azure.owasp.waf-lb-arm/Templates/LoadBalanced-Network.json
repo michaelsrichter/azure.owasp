@@ -149,7 +149,7 @@
       "name": "externalLoadBalancerTemplate",
       "dependsOn": [
         "[variables('publicIPAddressRef')]"
-      ]
+      ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {

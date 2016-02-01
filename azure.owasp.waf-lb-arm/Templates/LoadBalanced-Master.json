@@ -55,7 +55,6 @@
       "apiVersion": "2015-01-01",
       "type": "Microsoft.Resources/deployments",
       "name": "wafTemplate",
-
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -70,9 +69,15 @@
           "vnetRef": { "value": "[reference('networkTemplate').outputs.vnetRef.value]" },
           "adminUsername": { "value": "[parameters('adminUsername')]" },
           "adminPassword": { "value": "[parameters('adminPassword')]" },
-          "numberOfInstances": { "value": [ "reference('networkTemplate').outputs.numberOfInstances.value" ] }
+          "numberOfInstances": { "value": "[reference('networkTemplate').outputs.numberOfInstances.value]" }
         }
       }
     }
-  ]
+  ],
+  "outputs": {
+    "publicIPAddressFQDN": {
+      "type": "string",
+      "value": "[reference('networkTemplate').outputs.publicIPAddressFQDN.value]"
+    }
+  }
 }

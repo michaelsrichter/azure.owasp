@@ -317,6 +317,10 @@
     "internalLoadBalancerBackendPoolRef": {
       "type": "string",
       "value": "[variables('internalLoadBalancerBackendPoolRef')]"
+    },
+    "publicIPAddressFQDN": {
+      "type": "string",
+      "value": "[reference('publicIPAddressName').dnsSettings.fqdn]"
     }
   }
 }

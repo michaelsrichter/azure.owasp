@@ -1,0 +1,133 @@
+﻿{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "externalLoadbalancerName": {
+      "type": "string",
+      "metadata": {
+        "description": "externalLoadbalancerName"
+      }
+    },
+    "publicIPAddressRef": {
+      "type": "string",
+      "metadata": {
+        "description": "publicIPAddressRef"
+      }
+    },
+    "wafFrontEndIPConfigID": {
+      "type": "string",
+      "metadata": {
+        "description": "wafFrontEndIPConfigID"
+      }
+    },
+    "externalLoadBalancerBackendPoolRef": {
+      "type": "string",
+      "metadata": {
+        "description": "externalLoadBalancerBackendPoolRef"
+      }
+    },
+    "externalLBProbeId": {
+      "type": "string",
+      "metadata": {
+        "description": "externalLBProbeId"
+      }
+    },
+    "externalLoadBalancerRef": {
+      "type": "string",
+      "metadata": {
+        "description": "externalLoadBalancerRef"
+      }
+    }
+  },
+  "variables": { },
+  "resources": [
+    {
+      "apiVersion": "2015-06-15",
+      "name": "[parameters('externalLoadbalancerName')]",
+      "type": "Microsoft.Network/loadBalancers",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [ ],
+      "properties": {
+        "frontendIPConfigurations": [
+          {
+            "name": "LoadBalancerFrontEnd",
+            "properties": {
+              "publicIPAddress": {
+                "id": "[parameters('publicIPAddressRef')]"
+              }
+            }
+          }
+        ],
+        "backendAddressPools": [
+          {
+            "name": "BackendPool1"
+          }
+        ],
+        "inboundNatRules": [
+          {
+            "name": "Manage-VM0",
+            "properties": {
+              "frontendIPConfiguration": {
+                "id": "[parameters('wafFrontEndIPConfigID')]"
+              },
+              "protocol": "tcp",
+              "frontendPort": 8000,
+              "backendPort": 8000,
+              "enableFloatingIP": false
+            }
+          },
+          {
+            "name": "Manage-VM1",
+            "properties": {
+              "frontendIPConfiguration": {
+                "id": "[parameters('wafFrontEndIPConfigID')]"
+              },
+              "protocol": "tcp",
+              "frontendPort": 8001,
+              "backendPort": 8000,
+              "enableFloatingIP": false
+            }
+          }
+        ],
+        "loadBalancingRules": [
+          {
+            "name": "externallbrule",
+            "properties": {
+              "frontendIPConfiguration": {
+                "id": "[parameters('wafFrontEndIPConfigID')]"
+              },
+              "backendAddressPool": {
+                "id": "[parameters('externalLoadBalancerBackendPoolRef')]"
+              },
+              "protocol": "Tcp",
+              "frontendPort": 80,
+              "backendPort": 80,
+              "enableFloatingIP": false,
+              "idleTimeoutInMinutes": 5,
+              "probe": {
+                "id": "[parameters('externalLBProbeId')]"
+              }
+            }
+          }
+        ],
+        "probes": [
+          {
+            "name": "tcpProbe",
+            "properties": {
+              "protocol": "Tcp",
+              "port": 80,
+              "intervalInSeconds": 5,
+              "numberOfProbes": 2
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "outputs": {
+    "externalLoadBalancerRef": {
+      "type": "string",
+      "value": "[parameters('externalLoadBalancerRef')]"
+    },
+  }
+}

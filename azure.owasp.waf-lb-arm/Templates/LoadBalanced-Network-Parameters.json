@@ -9,7 +9,10 @@
       "value": "lbwa-"
     },
     "vnetName": {
-      "value": "lbwa-vnet"
+      "value": "vnet"
+    },
+    "externalLoadBalancerTemplate": {
+      "value": "https://raw.githubusercontent.com/michaelsrichter/azure.owasp/new-templates/azure.owasp.waf-lb-arm/Templates/LoadBalanced-Network-ExternalLoadBalancer.json"
     }
   }
 }

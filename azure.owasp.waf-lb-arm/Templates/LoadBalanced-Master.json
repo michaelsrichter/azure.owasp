@@ -75,7 +75,7 @@
     }
   ],
   "outputs": {
-    "publicIPAddressFQDN": {
+    "ApplicationURL": {
       "type": "string",
       "value": "[reference('networkTemplate').outputs.publicIPAddressFQDN.value]"
     }

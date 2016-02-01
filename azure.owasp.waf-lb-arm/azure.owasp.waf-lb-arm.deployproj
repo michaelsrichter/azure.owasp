@@ -35,6 +35,7 @@
     <Content Include="Scripts\Deploy-AzureResourceGroup.ps1" />
     <Content Include="Templates\LoadBalancedBarracudaWAFAndApp.json" />
     <None Include="Templates\LoadBalanced-Master.json" />
+    <None Include="Templates\LoadBalanced-Network-ExternalLoadBalancer.json" />
     <None Include="Templates\LoadBalanced-Network.json" />
     <None Include="Templates\LoadBalanced-WAF-Barracuda.Parameters.dev.json" />
     <None Include="Templates\LoadBalanced-WAF-Barracuda.json" />

@@ -54,14 +54,32 @@
       "metadata": {
         "description": "backend application port number"
       }
+    },
+    "addressPrefix": {
+      "type": "string",
+      "defaultValue": "10.0.0.0/16",
+      "metadata": {
+        "description": "backend application port number"
+      }
+    },
+    "wafSubnetPrefix": {
+      "type": "string",
+      "defaultValue": "10.0.0.0/24",
+      "metadata": {
+        "description": "backend application port number"
+      }
+    },
+    "webSubnetPrefix": {
+      "type": "string",
+      "defaultValue": "10.0.1.0/24",
+      "metadata": {
+        "description": "backend application port number"
+      }
     }
   },
   "variables": {
     "externalLoadbalancerName": "[concat(parameters('globalPrefix'), 'externalLoadbalancer')]",
     "internalLoadbalancerName": "[concat(parameters('globalPrefix'), 'internalLoadbalancer')]",
-    "addressPrefix": "10.0.0.0/16",
-    "wafSubnetPrefix": "10.0.0.0/24",
-    "webSubnetPrefix": "10.0.1.0/24",
     "publicIPAddressType": "Dynamic",
     "publicIPAddressName": "[concat(parameters('globalPrefix'), 'publicIPAddress')]",
     "vnetName": "[concat(parameters('globalPrefix'), parameters('vnetName'))]",
@@ -99,20 +117,20 @@
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
-            "[variables('addressPrefix')]"
+            "[parameters('addressPrefix')]"
           ]
         },
         "subnets": [
           {
             "name": "[parameters('wafSubnetName')]",
             "properties": {
-              "addressPrefix": "[variables('wafSubnetPrefix')]"
+              "addressPrefix": "[parameters('wafSubnetPrefix')]"
             }
           },
           {
             "name": "[parameters('webSubnetName')]",
             "properties": {
-              "addressPrefix": "[variables('webSubnetPrefix')]"
+              "addressPrefix": "[parameters('webSubnetPrefix')]"
             }
           }
         ]

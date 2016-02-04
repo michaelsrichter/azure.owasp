@@ -11,11 +11,26 @@
     "wafTemplate": {
       "value": "https://raw.githubusercontent.com/michaelsrichter/azure.owasp/new-templates/azure.owasp.waf-lb-arm/Templates/LoadBalanced-WAF-Barracuda.json"
     },
+    "appTemplate": {
+      "value": "https://raw.githubusercontent.com/michaelsrichter/azure.owasp/new-templates/azure.owasp.waf-lb-arm/Templates/LoadBalanced-App.json"
+    },
+    "externalLoadBalancerTemplate": {
+      "value": "https://raw.githubusercontent.com/michaelsrichter/azure.owasp/new-templates/azure.owasp.waf-lb-arm/Templates/LoadBalanced-Network-ExternalLoadBalancer.json"
+    },
     "adminUsername": {
       "value": "mike"
     },
     "adminPassword": {
-      "value": "BarthVader@#$"
+      "value": "DarthVader@#$"
+    },
+    "globalPrefix": {
+      "value": "prefix-"
+    },
+    "vnetName": {
+      "value": "demovnet"
+    },
+    "dnsNameForApplication": {
+      "value": "demoloadbalancedbarracuda"
     }
   }
 }

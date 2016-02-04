@@ -33,13 +33,13 @@
       <Visible>False</Visible>
     </None>
     <Content Include="Scripts\Deploy-AzureResourceGroup.ps1" />
+    <Content Include="Templates\LoadBalanced-App.json" />
     <Content Include="Templates\LoadBalancedBarracudaWAFAndApp.json" />
     <None Include="Templates\LoadBalanced-Master.json" />
     <None Include="Templates\LoadBalanced-Network-ExternalLoadBalancer.json" />
     <None Include="Templates\LoadBalanced-Network.json" />
     <None Include="Templates\LoadBalanced-WAF-Barracuda.Parameters.dev.json" />
     <None Include="Templates\LoadBalanced-WAF-Barracuda.json" />
-    <None Include="Templates\LoadBalanced-Network-Parameters.json" />
     <None Include="Templates\LoadBalanced-Master-Parameters.dev.json" />
     <None Include="Templates\LoadBalancedBarracudaWAFAndApp.param.dev.json" />
   </ItemGroup>

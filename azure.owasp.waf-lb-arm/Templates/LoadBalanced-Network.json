@@ -253,7 +253,7 @@
       "type": "string",
       "value": "[variables('wafSubnetRef')]"
     },
-    "webSubnetRef": {
+    "appSubnetRef": {
       "type": "string",
       "value": "[variables('webSubnetRef')]"
     },

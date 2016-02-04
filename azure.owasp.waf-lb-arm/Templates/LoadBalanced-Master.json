@@ -20,6 +20,12 @@
         "description": "WAF Template File Location"
       }
     },
+    "appTemplate": {
+      "type": "string",
+      "metadata": {
+        "description": "App Template File Location"
+      }
+    },
     "adminUsername": {
       "type": "string",
       "metadata": {
@@ -30,6 +36,30 @@
       "type": "string",
       "metadata": {
         "description": "Admin passwords for VMs"
+      }
+    },
+    "globalPrefix": {
+      "type": "string",
+      "metadata": {
+        "description": "globalPrefix"
+      }
+    },
+    "dnsNameForApplication": {
+      "type": "string",
+      "metadata": {
+        "description": "dnsNameForApplication"
+      }
+    },
+    "vnetName": {
+      "type": "string",
+      "metadata": {
+        "description": "vnetName"
+      }
+    },
+    "externalLoadBalancerTemplate": {
+      "type": "string",
+      "metadata": {
+        "description": "externalLoadBalancerTemplate"
       }
     }
   },
@@ -48,6 +78,12 @@
         "parametersLink": {
           "uri": "[parameters('networkTemplateParameters')]",
           "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "dnsNameForApplication": { "value": "[parameters('dnsNameForApplication')]" },
+          "globalPrefix": { "value": "[parameters('globalPrefix')]" },
+          "vnetName": { "value": "[parameters('vnetName')]" },
+          "externalLoadBalancerTemplate": { "value": "[parameters('externalLoadBalancerTemplate')]" }
         }
       }
     },
@@ -65,6 +101,28 @@
           "loadBalancerRef": { "value": "[reference('networkTemplate').outputs.externalLoadBalancerRef.value]" },
           "subnetRef": { "value": "[reference('networkTemplate').outputs.wafSubnetRef.value]" },
           "loadBalancerBackEndAddressPoolRef": { "value": "[reference('networkTemplate').outputs.externalLoadBalancerBackendPoolRef.value]" },
+          "globalPrefix": { "value": "[reference('networkTemplate').outputs.globalPrefix.value]" },
+          "vnetRef": { "value": "[reference('networkTemplate').outputs.vnetRef.value]" },
+          "adminUsername": { "value": "[parameters('adminUsername')]" },
+          "adminPassword": { "value": "[parameters('adminPassword')]" },
+          "numberOfInstances": { "value": "[reference('networkTemplate').outputs.numberOfInstances.value]" }
+        }
+      }
+    },
+    {
+      "apiVersion": "2015-01-01",
+      "type": "Microsoft.Resources/deployments",
+      "name": "appTemplate",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[parameters('appTemplate')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "loadBalancerRef": { "value": "[reference('networkTemplate').outputs.internalLoadBalancerRef.value]" },
+          "subnetRef": { "value": "[reference('networkTemplate').outputs.appSubnetRef.value]" },
+          "loadBalancerBackEndAddressPoolRef": { "value": "[reference('networkTemplate').outputs.internalLoadBalancerBackendPoolRef.value]" },
           "globalPrefix": { "value": "[reference('networkTemplate').outputs.globalPrefix.value]" },
           "vnetRef": { "value": "[reference('networkTemplate').outputs.vnetRef.value]" },
           "adminUsername": { "value": "[parameters('adminUsername')]" },

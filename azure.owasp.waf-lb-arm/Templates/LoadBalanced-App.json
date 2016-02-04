@@ -50,15 +50,15 @@
     }
   },
   "variables": {
-    "wafAvailabilitySetName": "[concat(parameters('globalPrefix'), 'waf-as')]",
-    "wafVMNamePrefix": "[concat(parameters('globalPrefix'), 'waf-vm')]",
-    "wafNicNamePrefix": "[concat(parameters('globalPrefix'), 'waf-nic')]",
-    "wafIpConfig": "[concat(parameters('globalPrefix'), 'waf-ipconfig')]"
+    "appAvailabilitySetName": "[concat(parameters('globalPrefix'), 'app-as')]",
+    "appVMNamePrefix": "[concat(parameters('globalPrefix'), 'app-vm')]",
+    "appNicNamePrefix": "[concat(parameters('globalPrefix'), 'app-nic')]",
+    "appIpConfig": "[concat(parameters('globalPrefix'), 'app-ipconfig')]"
   },
   "resources": [
     {
       "type": "Microsoft.Compute/availabilitySets",
-      "name": "[variables('wafAvailabilitySetName')]",
+      "name": "[variables('appAvailabilitySetName')]",
       "apiVersion": "2015-06-15",
       "location": "[resourceGroup().location]",
       "properties": { }
@@ -66,17 +66,17 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(variables('wafNicNamePrefix'), copyindex())]",
+      "name": "[concat(variables('appNicNamePrefix'), copyindex())]",
       "location": "[resourceGroup().location]",
       "copy": {
         "name": "nicLoop",
         "count": "[parameters('numberOfInstances')]"
       },
-      "dependsOn": [],
+      "dependsOn": [ ],
       "properties": {
         "ipConfigurations": [
           {
-            "name": "[variables('wafIpConfig')]",
+            "name": "[variables('appIpConfig')]",
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
@@ -85,11 +85,6 @@
               "loadBalancerBackendAddressPools": [
                 {
                   "id": "[parameters('loadBalancerBackEndAddressPoolRef')]"
-                }
-              ],
-              "loadBalancerInboundNatRules": [
-                {
-                  "id": "[concat(parameters('loadbalancerRef'),'/inboundNatRules/Manage-VM', copyindex())]"
                 }
               ]
             }
@@ -100,37 +95,37 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Compute/virtualMachines",
-      "name": "[concat(variables('wafVMNamePrefix'), copyindex())]",
+      "name": "[concat(variables('appVMNamePrefix'), copyindex())]",
       "copy": {
         "name": "virtualMachineLoop",
         "count": "[parameters('numberOfInstances')]"
       },
       "location": "[resourceGroup().location]",
       "dependsOn": [
-        "[concat('Microsoft.Network/networkInterfaces/', variables('wafNicNamePrefix'), copyindex())]",
-        "[concat('Microsoft.Compute/availabilitySets/', variables('wafAvailabilitySetName'))]"
+        "[concat('Microsoft.Network/networkInterfaces/', variables('appNicNamePrefix'), copyindex())]",
+        "[concat('Microsoft.Compute/availabilitySets/', variables('appAvailabilitySetName'))]"
       ],
       "properties": {
         "availabilitySet": {
-          "id": "[resourceId('Microsoft.Compute/availabilitySets',variables('wafAvailabilitySetName'))]"
+          "id": "[resourceId('Microsoft.Compute/availabilitySets',variables('appAvailabilitySetName'))]"
         },
         "hardwareProfile": {
           "vmSize": "[parameters('vmSize')]"
         },
         "osProfile": {
-          "computerName": "[concat(variables('wafVMNamePrefix'), copyIndex())]",
+          "computerName": "[concat(variables('appVMNamePrefix'), copyIndex())]",
           "adminUsername": "[parameters('adminUsername')]",
           "adminPassword": "[parameters('adminPassword')]"
         },
         "storageProfile": {
           "osDisk": {
-            "name": "owaspwaf1osdisk",
             "osType": "linux",
+            "name": "owaspnodeapposdisk",
             "vhd": {
-              "uri": "[concat('https://owasprm.blob.core.windows.net/instances/',variables('wafVMNamePrefix'), concat(copyIndex(), '.vhd'))]"
+              "uri": "[concat('http://owasprm.blob.core.windows.net/instances/owaspnodeapposdisk', copyindex(), '.vhd')]"
             },
             "image": {
-              "uri": "https://owasprm.blob.core.windows.net/barracudavhd/BarracudaWebAppFirewall-vm4.2.5-fw8.0.1.005-20151007.vhd"
+              "uri": "https://owasprm.blob.core.windows.net/appvhd/owasp-node-app-server.vhd"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -139,9 +134,15 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(variables('wafNicNamePrefix'),copyindex()))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(variables('appNicNamePrefix'),copyindex()))]"
             }
           ]
+        },
+        "diagnosticsProfile": {
+          "bootDiagnostics": {
+            "enabled": "true",
+            "storageUri": "http://owasprm.blob.core.windows.net"
+          }
         }
       }
     }

@@ -8,12 +8,6 @@
         "description": "Network Template File Location"
       }
     },
-    "networkTemplateParameters": {
-      "type": "string",
-      "metadata": {
-        "description": "Network Template Parameters File Locaiton"
-      }
-    },
     "wafTemplate": {
       "type": "string",
       "metadata": {
@@ -73,10 +67,6 @@
         "mode": "Incremental",
         "templateLink": {
           "uri": "[parameters('networkTemplate')]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parametersLink": {
-          "uri": "[parameters('networkTemplateParameters')]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {

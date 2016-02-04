@@ -245,7 +245,7 @@
       "type": "string",
       "value": "[variables('externalLoadBalancerRef')]"
     },
-    "internallLoadBalancerRef": {
+    "internalLoadBalancerRef": {
       "type": "string",
       "value": "[variables('internalLoadBalancerRef')]"
     },

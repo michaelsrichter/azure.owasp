@@ -5,9 +5,6 @@
     "networkTemplate": {
       "value": "https://raw.githubusercontent.com/michaelsrichter/azure.owasp/new-templates/azure.owasp.waf-lb-arm/Templates/LoadBalanced-Network.json"
     },
-    "networkTemplateParameters": {
-      "value": "https://raw.githubusercontent.com/michaelsrichter/azure.owasp/new-templates/azure.owasp.waf-lb-arm/Templates/LoadBalanced-Network-Parameters.json"
-    },
     "wafTemplate": {
       "value": "https://raw.githubusercontent.com/michaelsrichter/azure.owasp/new-templates/azure.owasp.waf-lb-arm/Templates/LoadBalanced-WAF-Barracuda.json"
     },

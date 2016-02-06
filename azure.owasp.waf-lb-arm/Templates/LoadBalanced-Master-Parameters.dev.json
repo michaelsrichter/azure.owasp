@@ -6,16 +6,16 @@
       "value": "https://raw.githubusercontent.com/michaelsrichter/azure.owasp/new-templates/azure.owasp.waf-lb-arm/Templates/LoadBalanced-Network.json"
     },
     "wafTemplate": {
-      "value": "https://raw.githubusercontent.com/michaelsrichter/azure.owasp/new-templates/azure.owasp.waf-lb-arm/Templates/LoadBalanced-WAF-Barracuda.json"
+      "value": "https://raw.githubusercontent.com/michaelsrichter/azure.owasp/new-templates/azure.owasp.waf-lb-arm/Templates/LoadBalanced-WAF-Barracuda-Marketplace.json"
     },
     "appTemplate": {
-      "value": "https://raw.githubusercontent.com/michaelsrichter/azure.owasp/new-templates/azure.owasp.waf-lb-arm/Templates/LoadBalanced-App.json"
+      "value": "https://raw.githubusercontent.com/michaelsrichter/azure.owasp/new-templates/azure.owasp.waf-lb-arm/Templates/LoadBalanced-App-Marketplace-Wordpress.json"
     },
     "externalLoadBalancerTemplate": {
       "value": "https://raw.githubusercontent.com/michaelsrichter/azure.owasp/new-templates/azure.owasp.waf-lb-arm/Templates/LoadBalanced-Network-ExternalLoadBalancer.json"
     },
     "adminUsername": {
-      "value": "mike"
+      "value": "user"
     },
     "adminPassword": {
       "value": "DarthVader@#$"
@@ -28,6 +28,23 @@
     },
     "dnsNameForApplication": {
       "value": "demoloadbalancedbarracuda"
-    }
+    },
+    "storageName": {
+      "value": "waf-app-storage"
+    },
+    "imagePublisher": {
+      "value": "barracudanetworks"
+    },
+    "imageOffer": {
+      "value": "waf"
+    },
+    "imageSKU": {
+      "value": "hourly"
+    },
+    "wafVmSize": { "value": "Standard_D1" },
+    "appVmSize": { "value": "Standard_A2" },
+    "backendPortNumber": { "value": 80 },
+    "frontendPortNumber": { "value": 80 },
+    "manageWafPortNumber": { "value": 8000 }
   }
 }

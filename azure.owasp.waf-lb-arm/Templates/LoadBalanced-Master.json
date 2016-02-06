@@ -55,6 +55,60 @@
       "metadata": {
         "description": "externalLoadBalancerTemplate"
       }
+    },
+    "storageName": {
+      "type": "string",
+      "metadata": {
+        "description": "storageName"
+      }
+    },
+    "imagePublisher": {
+      "type": "string",
+      "metadata": {
+        "description": "imagePublisher"
+      }
+    },
+    "imageOffer": {
+      "type": "string",
+      "metadata": {
+        "description": "imageOffer"
+      }
+    },
+    "imageSKU": {
+      "type": "string",
+      "metadata": {
+        "description": "imageSKU"
+      }
+    },
+    "wafVmSize": {
+      "type": "string",
+      "metadata": {
+        "description": "wafVmImageSize"
+      }
+    },
+    "appVmSize": {
+      "type": "string",
+      "metadata": {
+        "description": "appVmImageSize"
+      }
+    },
+    "backendPortNumber": {
+      "type": "int",
+      "metadata": {
+        "description": "backend application port number"
+      }
+    },
+    "frontendPortNumber": {
+      "type": "int",
+      "metadata": {
+        "description": "frontend waf port number"
+      }
+    },
+    "manageWafPortNumber": {
+      "type": "int",
+      "metadata": {
+        "description": "manage WAF port number"
+      }
     }
   },
   "variables": { },
@@ -71,9 +125,12 @@
         },
         "parameters": {
           "dnsNameForApplication": { "value": "[parameters('dnsNameForApplication')]" },
-          "globalPrefix": { "value": "[parameters('globalPrefix')]" },
           "vnetName": { "value": "[parameters('vnetName')]" },
-          "externalLoadBalancerTemplate": { "value": "[parameters('externalLoadBalancerTemplate')]" }
+          "globalPrefix": { "value": "[parameters('globalPrefix')]" },
+          "externalLoadBalancerTemplate": { "value": "[parameters('externalLoadBalancerTemplate')]" },
+          "backendPortNumber": { "value": "[parameters('backendPortNumber')]" },
+          "frontendPortNumber": { "value": "[parameters('frontendPortNumber')]" },
+          "manageWafPortNumber": { "value": "[parameters('manageWafPortNumber')]" }
         }
       }
     },
@@ -88,14 +145,19 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "loadBalancerRef": { "value": "[reference('networkTemplate').outputs.externalLoadBalancerRef.value]" },
-          "subnetRef": { "value": "[reference('networkTemplate').outputs.wafSubnetRef.value]" },
-          "loadBalancerBackEndAddressPoolRef": { "value": "[reference('networkTemplate').outputs.externalLoadBalancerBackendPoolRef.value]" },
           "globalPrefix": { "value": "[reference('networkTemplate').outputs.globalPrefix.value]" },
+          "numberOfInstances": { "value": "[reference('networkTemplate').outputs.numberOfInstances.value]" },
           "vnetRef": { "value": "[reference('networkTemplate').outputs.vnetRef.value]" },
+          "subnetRef": { "value": "[reference('networkTemplate').outputs.wafSubnetRef.value]" },
+          "loadBalancerRef": { "value": "[reference('networkTemplate').outputs.externalLoadBalancerRef.value]" },
+          "loadBalancerBackEndAddressPoolRef": { "value": "[reference('networkTemplate').outputs.externalLoadBalancerBackendPoolRef.value]" },
           "adminUsername": { "value": "[parameters('adminUsername')]" },
           "adminPassword": { "value": "[parameters('adminPassword')]" },
-          "numberOfInstances": { "value": "[reference('networkTemplate').outputs.numberOfInstances.value]" }
+          "vmSize": { "value": "[parameters('wafVmSize')]" },
+          "storageName": { "value": "[parameters('storageName')]" },
+          "imagePublisher": { "value": "[parameters('imagePublisher')]" },
+          "imageOffer": { "value": "[parameters('imageOffer')]" },
+          "imageSKU": { "value": "[parameters('imageSKU')]" }
         }
       }
     },
@@ -110,14 +172,16 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "loadBalancerRef": { "value": "[reference('networkTemplate').outputs.internalLoadBalancerRef.value]" },
-          "subnetRef": { "value": "[reference('networkTemplate').outputs.appSubnetRef.value]" },
-          "loadBalancerBackEndAddressPoolRef": { "value": "[reference('networkTemplate').outputs.internalLoadBalancerBackendPoolRef.value]" },
           "globalPrefix": { "value": "[reference('networkTemplate').outputs.globalPrefix.value]" },
+          "numberOfInstances": { "value": "[reference('networkTemplate').outputs.numberOfInstances.value]" },
           "vnetRef": { "value": "[reference('networkTemplate').outputs.vnetRef.value]" },
+          "subnetRef": { "value": "[reference('networkTemplate').outputs.appSubnetRef.value]" },
+          "loadBalancerRef": { "value": "[reference('networkTemplate').outputs.internalLoadBalancerRef.value]" },
+          "loadBalancerBackEndAddressPoolRef": { "value": "[reference('networkTemplate').outputs.internalLoadBalancerBackendPoolRef.value]" },
           "adminUsername": { "value": "[parameters('adminUsername')]" },
           "adminPassword": { "value": "[parameters('adminPassword')]" },
-          "numberOfInstances": { "value": "[reference('networkTemplate').outputs.numberOfInstances.value]" }
+          "vmSize": { "value": "[parameters('appVmSize')]" },
+          "storageName": { "value": "[parameters('storageName')]" }
         }
       }
     }

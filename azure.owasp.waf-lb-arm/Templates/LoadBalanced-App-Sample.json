@@ -1,0 +1,156 @@
+﻿{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "globalPrefix": {
+      "type": "string",
+      "metadata": {
+        "description": "Global Prefixes for variables"
+      }
+    },
+    "numberOfInstances": {
+      "type": "int",
+      "defaultValue": 2,
+      "metadata": { "description": "number of instances" }
+    },
+    "vnetRef": {
+      "type": "string",
+      "metadata": { "description": "the vnet resource reference identifier" }
+    },
+    "subnetRef": {
+      "type": "string",
+      "metadata": { "description": "the subnet resource reference identifier" }
+    },
+    "loadBalancerRef": {
+      "type": "string",
+      "metadata": { "description": "the load balancer resource reference identifier" }
+    },
+    "loadBalancerBackEndAddressPoolRef": {
+      "type": "string",
+      "metadata": { "description": "the load balancer backend address pool resource reference identifier" }
+    },
+    "adminUsername": {
+      "type": "string",
+      "metadata": {
+        "description": "Admin username for VMs"
+      }
+    },
+    "adminPassword": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Admin password for VMs"
+      }
+    },
+    "vmSize": {
+      "type": "string",
+      "defaultValue": "Standard_D1",
+      "metadata": {
+        "description": "Size of the VM"
+      }
+    },
+    "storageName": {
+      "type": "string",
+      "metadata": {
+        "description": "storageName"
+      }
+    }
+  },
+  "variables": {
+    "appAvailabilitySetName": "[concat(parameters('globalPrefix'), 'app-as')]",
+    "appVMNamePrefix": "[concat(parameters('globalPrefix'), 'app-vm')]",
+    "appNicNamePrefix": "[concat(parameters('globalPrefix'), 'app-nic')]",
+    "appIpConfig": "[concat(parameters('globalPrefix'), 'app-ipconfig')]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Compute/availabilitySets",
+      "name": "[variables('appAvailabilitySetName')]",
+      "apiVersion": "2015-06-15",
+      "location": "[resourceGroup().location]",
+      "properties": { }
+    },
+    {
+      "apiVersion": "2015-06-15",
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[concat(variables('appNicNamePrefix'), copyindex())]",
+      "location": "[resourceGroup().location]",
+      "copy": {
+        "name": "nicLoop",
+        "count": "[parameters('numberOfInstances')]"
+      },
+      "dependsOn": [ ],
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "[variables('appIpConfig')]",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "[parameters('subnetRef')]"
+              },
+              "loadBalancerBackendAddressPools": [
+                {
+                  "id": "[parameters('loadBalancerBackEndAddressPoolRef')]"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "2015-06-15",
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "[concat(variables('appVMNamePrefix'), copyindex())]",
+      "copy": {
+        "name": "virtualMachineLoop",
+        "count": "[parameters('numberOfInstances')]"
+      },
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[concat('Microsoft.Network/networkInterfaces/', variables('appNicNamePrefix'), copyindex())]",
+        "[concat('Microsoft.Compute/availabilitySets/', variables('appAvailabilitySetName'))]"
+      ],
+      "properties": {
+        "availabilitySet": {
+          "id": "[resourceId('Microsoft.Compute/availabilitySets',variables('appAvailabilitySetName'))]"
+        },
+        "hardwareProfile": {
+          "vmSize": "[parameters('vmSize')]"
+        },
+        "osProfile": {
+          "computerName": "[concat(variables('appVMNamePrefix'), copyIndex())]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "adminPassword": "[parameters('adminPassword')]"
+        },
+        "storageProfile": {
+          "osDisk": {
+            "osType": "linux",
+            "name": "owaspnodeapposdisk",
+            "vhd": {
+              "uri": "[concat('http://owasprm.blob.core.windows.net/instances/owaspnodeapposdisk', copyindex(), '.vhd')]"
+            },
+            "image": {
+              "uri": "https://owasprm.blob.core.windows.net/appvhd/owasp-node-app-server.vhd"
+            },
+            "caching": "ReadWrite",
+            "createOption": "FromImage"
+          }
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(variables('appNicNamePrefix'),copyindex()))]"
+            }
+          ]
+        },
+        "diagnosticsProfile": {
+          "bootDiagnostics": {
+            "enabled": "true",
+            "storageUri": "http://owasprm.blob.core.windows.net"
+          }
+        }
+      }
+    }
+  ]
+}

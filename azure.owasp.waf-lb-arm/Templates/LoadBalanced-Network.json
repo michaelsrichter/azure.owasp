@@ -20,6 +20,12 @@
         "description": "VNET name"
       }
     },
+    "externalLoadBalancerTemplate": {
+      "type": "string",
+      "metadata": {
+        "description": "backend application port number"
+      }
+    },
     "externalLBName": {
       "type": "string",
       "defaultValue": "external-lb",
@@ -50,9 +56,20 @@
     },
     "backendPortNumber": {
       "type": "int",
-      "defaultValue": 3000,
       "metadata": {
         "description": "backend application port number"
+      }
+    },
+    "frontendPortNumber": {
+      "type": "int",
+      "metadata": {
+        "description": "frontend waf port number"
+      }
+    },
+    "manageWafPortNumber": {
+      "type": "int",
+      "metadata": {
+        "description": "manage WAF port number"
       }
     },
     "addressPrefix": {
@@ -72,12 +89,6 @@
     "webSubnetPrefix": {
       "type": "string",
       "defaultValue": "10.0.1.0/24",
-      "metadata": {
-        "description": "backend application port number"
-      }
-    },
-    "externalLoadBalancerTemplate": {
-      "type": "string",
       "metadata": {
         "description": "backend application port number"
       }
@@ -162,7 +173,10 @@
           "wafFrontEndIPConfigID": { "value": "[variables('wafFrontEndIPConfigID')]" },
           "externalLoadBalancerBackendPoolRef": { "value": "[variables('externalLoadBalancerBackendPoolRef')]" },
           "externalLBProbeId": { "value": "[variables('externalLBProbeId')]" },
-          "externalLoadBalancerRef": { "value": "[variables('externalLoadBalancerRef')]" }
+          "externalLoadBalancerRef": { "value": "[variables('externalLoadBalancerRef')]" },
+          "backendPortNumber": { "value": "[parameters('backendPortNumber')]" },
+          "frontendPortNumber": { "value": "[parameters('frontendPortNumber')]" },
+          "manageWafPortNumber": { "value": "[parameters('manageWafPortNumber')]" }
         }
       }
     },
@@ -207,8 +221,8 @@
                 "id": "[variables('internalLBProbeId')]"
               },
               "protocol": "Tcp",
-              "frontendPort": 80,
-              "backendPort": 3000,
+              "frontendPort": "[parameters('frontendPortNumber')]",
+              "backendPort": "[parameters('backendPortNumber')]",
               "idleTimeoutInMinutes": 15
             },
             "name": "internallbrule"

@@ -37,6 +37,24 @@
       "metadata": {
         "description": "externalLoadBalancerRef"
       }
+    },
+    "backendPortNumber": {
+      "type": "int",
+      "metadata": {
+        "description": "backend application port number"
+      }
+    },
+    "frontendPortNumber": {
+      "type": "int",
+      "metadata": {
+        "description": "frontend waf port number"
+      }
+    },
+    "manageWafPortNumber": {
+      "type": "int",
+      "metadata": {
+        "description": "frontend waf port number"
+      }
     }
   },
   "variables": { },
@@ -72,7 +90,7 @@
               },
               "protocol": "tcp",
               "frontendPort": 8000,
-              "backendPort": 8000,
+              "backendPort": "[parameters('manageWafPortNumber')]",
               "enableFloatingIP": false
             }
           },
@@ -84,7 +102,7 @@
               },
               "protocol": "tcp",
               "frontendPort": 8001,
-              "backendPort": 8000,
+              "backendPort": "[parameters('manageWafPortNumber')]",
               "enableFloatingIP": false
             }
           }
@@ -100,8 +118,8 @@
                 "id": "[parameters('externalLoadBalancerBackendPoolRef')]"
               },
               "protocol": "Tcp",
-              "frontendPort": 80,
-              "backendPort": 80,
+              "frontendPort": "[parameters('frontendPortNumber')]",
+              "backendPort": "[parameters('backendPortNumber')]",
               "enableFloatingIP": false,
               "idleTimeoutInMinutes": 5,
               "probe": {

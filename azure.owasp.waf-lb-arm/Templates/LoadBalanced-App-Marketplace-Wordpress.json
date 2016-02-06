@@ -52,33 +52,15 @@
       "metadata": {
         "description": "storageName"
       }
-    },
-    "imagePublisher": {
-      "type": "string",
-      "metadata": {
-        "description": "imagePublisher"
-      }
-    },
-    "imageOffer": {
-      "type": "string",
-      "metadata": {
-        "description": "imageOffer"
-      }
-    },
-    "imageSKU": {
-      "type": "string",
-      "metadata": {
-        "description": "imageSKU"
-      }
     }
   },
   "variables": {
     "storageAccountType": "Standard_LRS",
     "storageAccountName": "[concat(parameters('globalPrefix'), parameters('storageName'))]",
-    "wafAvailabilitySetName": "[concat(parameters('globalPrefix'), 'waf-as')]",
-    "wafVMNamePrefix": "[concat(parameters('globalPrefix'), 'waf-vm')]",
-    "wafNicNamePrefix": "[concat(parameters('globalPrefix'), 'waf-nic')]",
-    "wafIpConfig": "[concat(parameters('globalPrefix'), 'waf-ipconfig')]"
+    "appAvailabilitySetName": "[concat(parameters('globalPrefix'), 'app-as')]",
+    "appVMNamePrefix": "[concat(parameters('globalPrefix'), 'app-wordpress-vm')]",
+    "appNicNamePrefix": "[concat(parameters('globalPrefix'), 'app-nic')]",
+    "appIpConfig": "[concat(parameters('globalPrefix'), 'app-ipconfig')]"
   },
   "resources": [
     {
@@ -87,12 +69,12 @@
       "apiVersion": "2015-05-01-preview",
       "location": "[resourceGroup().location]",
       "properties": {
-        "accountType": "[variables('storageAccountType')]"
+        "accountType": "[variables('storageAccountName')]"
       }
     },
     {
       "type": "Microsoft.Compute/availabilitySets",
-      "name": "[variables('wafAvailabilitySetName')]",
+      "name": "[variables('appAvailabilitySetName')]",
       "apiVersion": "2015-06-15",
       "location": "[resourceGroup().location]",
       "properties": { }
@@ -100,7 +82,7 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(variables('wafNicNamePrefix'), copyindex())]",
+      "name": "[concat(variables('appNicNamePrefix'), copyindex())]",
       "location": "[resourceGroup().location]",
       "copy": {
         "name": "nicLoop",
@@ -110,7 +92,7 @@
       "properties": {
         "ipConfigurations": [
           {
-            "name": "[variables('wafIpConfig')]",
+            "name": "[variables('appIpConfig')]",
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
@@ -119,11 +101,6 @@
               "loadBalancerBackendAddressPools": [
                 {
                   "id": "[parameters('loadBalancerBackEndAddressPoolRef')]"
-                }
-              ],
-              "loadBalancerInboundNatRules": [
-                {
-                  "id": "[concat(parameters('loadbalancerRef'),'/inboundNatRules/Manage-VM', copyindex())]"
                 }
               ]
             }
@@ -134,50 +111,50 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Compute/virtualMachines",
-      "name": "[concat(variables('wafVMNamePrefix'), copyindex())]",
+      "name": "[concat(variables('appVMNamePrefix'), copyindex())]",
       "copy": {
         "name": "virtualMachineLoop",
         "count": "[parameters('numberOfInstances')]"
       },
       "location": "[resourceGroup().location]",
       "dependsOn": [
-        "[concat('Microsoft.Network/networkInterfaces/', variables('wafNicNamePrefix'), copyindex())]",
-        "[concat('Microsoft.Compute/availabilitySets/', variables('wafAvailabilitySetName'))]",
+        "[concat('Microsoft.Network/networkInterfaces/', variables('appNicNamePrefix'), copyindex())]",
+        "[concat('Microsoft.Compute/availabilitySets/', variables('appAvailabilitySetName'))]",
         "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
       ],
       "properties": {
         "availabilitySet": {
-          "id": "[resourceId('Microsoft.Compute/availabilitySets',variables('wafAvailabilitySetName'))]"
+          "id": "[resourceId('Microsoft.Compute/availabilitySets',variables('appAvailabilitySetName'))]"
         },
         "hardwareProfile": {
           "vmSize": "[parameters('vmSize')]"
         },
         "osProfile": {
-          "computerName": "[concat(variables('wafVMNamePrefix'), copyIndex())]",
+          "computerName": "[concat(variables('appVMNamePrefix'), copyIndex())]",
           "adminUsername": "[parameters('adminUsername')]",
           "adminPassword": "[parameters('adminPassword')]"
         },
         "storageProfile": {
-          "imageReference": {
-            "publisher": "[parameters('imagePublisher')]",
-            "offer": "[parameters('imageOffer')]",
-            "sku": "[parameters('imageSKU')]",
-            "version": "latest"
-          },
           "osDisk": {
-            "name": "wafosdisk",
             "osType": "linux",
+            "name": "owaspnodeapposdisk",
             "vhd": {
-              "uri": "[concat('http://',variables('storageAccountName'),'.blob.core.windows.net/instances/',variables('wafVMNamePrefix'), copyIndex(),'.vhd')]"
+              "uri": "[concat('http://',variables('storageAccountName'),'.blob.core.windows.net/instances/',variables('appVMNamePrefix'), copyIndex(),'.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
+          },
+          "imageReference": {
+            "publisher": "bitnami",
+            "offer": "wordpress",
+            "sku": "4-3",
+            "version": "latest"
           }
         },
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(variables('wafNicNamePrefix'),copyindex()))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(variables('appNicNamePrefix'),copyindex()))]"
             }
           ]
         }

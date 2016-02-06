@@ -21,7 +21,7 @@
       "value": "DarthVader@#$"
     },
     "globalPrefix": {
-      "value": "prefix-"
+      "value": "prefix"
     },
     "vnetName": {
       "value": "demovnet"
@@ -30,7 +30,7 @@
       "value": "demoloadbalancedbarracuda"
     },
     "storageName": {
-      "value": "waf-app-storage"
+      "value": "lbwafapp"
     },
     "imagePublisher": {
       "value": "barracudanetworks"

@@ -112,6 +112,11 @@
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[concat(variables('appVMNamePrefix'), copyindex())]",
+      "plan": {
+        "name": "4-3",
+        "publisher": "bitnami",
+        "product": "wordpress"
+      },
       "copy": {
         "name": "virtualMachineLoop",
         "count": "[parameters('numberOfInstances')]"

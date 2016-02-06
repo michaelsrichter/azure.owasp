@@ -15,7 +15,7 @@
       "value": "https://raw.githubusercontent.com/michaelsrichter/azure.owasp/new-templates/azure.owasp.waf-lb-arm/Templates/LoadBalanced-Network-ExternalLoadBalancer.json"
     },
     "adminUsername": {
-      "value": "user"
+      "value": "azureuser"
     },
     "adminPassword": {
       "value": "DarthVader@#$"

@@ -135,6 +135,11 @@
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[concat(variables('wafVMNamePrefix'), copyindex())]",
+      "plan": {
+        "name": "[parameters('imageSKU')]",
+        "publisher": "[parameters('imagePublisher')]",
+        "product": "[parameters('imageOffer')]"
+      },
       "copy": {
         "name": "virtualMachineLoop",
         "count": "[parameters('numberOfInstances')]"

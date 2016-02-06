@@ -39,6 +39,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deck", "Deck", "{7088BFA9-C
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "azure.owasp.waf.app", "azure.owasp.waf.app\azure.owasp.waf.app.njsproj", "{8BD67712-733B-404F-91C9-086F9C191A40}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{3AD68954-298C-482A-B939-8065697CEE06}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -35,12 +35,11 @@
     <Content Include="Scripts\Deploy-AzureResourceGroup.ps1" />
     <Content Include="Templates\LoadBalanced-App-Marketplace-Wordpress.json" />
     <Content Include="Templates\LoadBalanced-App-Sample.json" />
+    <None Include="README.md" />
     <None Include="Templates\LoadBalanced-Master.json" />
     <None Include="Templates\LoadBalanced-Network-ExternalLoadBalancer.json" />
     <None Include="Templates\LoadBalanced-Network.json" />
     <None Include="Templates\LoadBalanced-WAF-Barracuda-Marketplace.json" />
-    <None Include="Templates\LoadBalanced-WAF-Barracuda.Parameters.dev.json" />
-    <None Include="Templates\LoadBalanced-WAF-Barracuda.json" />
     <None Include="Templates\LoadBalanced-Master-Parameters.dev.json" />
   </ItemGroup>
   <ItemGroup>

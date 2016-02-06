@@ -3,16 +3,16 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "networkTemplate": {
-      "value": "https://raw.githubusercontent.com/michaelsrichter/azure.owasp/new-templates/azure.owasp.waf-lb-arm/Templates/LoadBalanced-Network.json"
+      "value": "https://raw.githubusercontent.com/michaelsrichter/azure.owasp/Public/azure.owasp.waf-lb-arm/Templates/LoadBalanced-Network.json"
     },
     "wafTemplate": {
-      "value": "https://raw.githubusercontent.com/michaelsrichter/azure.owasp/new-templates/azure.owasp.waf-lb-arm/Templates/LoadBalanced-WAF-Barracuda-Marketplace.json"
+      "value": "https://raw.githubusercontent.com/michaelsrichter/azure.owasp/Public/azure.owasp.waf-lb-arm/Templates/LoadBalanced-WAF-Barracuda-Marketplace.json"
     },
     "appTemplate": {
-      "value": "https://raw.githubusercontent.com/michaelsrichter/azure.owasp/new-templates/azure.owasp.waf-lb-arm/Templates/LoadBalanced-App-Marketplace-Wordpress.json"
+      "value": "https://raw.githubusercontent.com/michaelsrichter/azure.owasp/Public/azure.owasp.waf-lb-arm/Templates/LoadBalanced-App-Marketplace-Wordpress.json"
     },
     "externalLoadBalancerTemplate": {
-      "value": "https://raw.githubusercontent.com/michaelsrichter/azure.owasp/new-templates/azure.owasp.waf-lb-arm/Templates/LoadBalanced-Network-ExternalLoadBalancer.json"
+      "value": "https://raw.githubusercontent.com/michaelsrichter/azure.owasp/Public/azure.owasp.waf-lb-arm/Templates/LoadBalanced-Network-ExternalLoadBalancer.json"
     },
     "adminUsername": {
       "value": "azureuser"
@@ -21,16 +21,16 @@
       "value": "DarthVader@#$"
     },
     "globalPrefix": {
-      "value": "prefix"
+      "value": "KEEPSHORT"
     },
     "vnetName": {
       "value": "demovnet"
     },
     "dnsNameForApplication": {
-      "value": "demoloadbalancedbarracuda"
+      "value": "MAKEUPYOUROWNUNIQUESUBDOMAIN"
     },
     "storageName": {
-      "value": "lbwafapp"
+      "value": "MAKEUNIQUE"
     },
     "imagePublisher": {
       "value": "barracudanetworks"

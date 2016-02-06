@@ -166,7 +166,6 @@
           },
           "osDisk": {
             "name": "wafosdisk",
-            "osType": "linux",
             "vhd": {
               "uri": "[concat('http://',variables('storageAccountName'),'.blob.core.windows.net/instances/',variables('wafVMNamePrefix'), copyIndex(),'.vhd')]"
             },

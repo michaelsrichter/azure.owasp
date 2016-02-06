@@ -136,7 +136,6 @@
         },
         "storageProfile": {
           "osDisk": {
-            "osType": "linux",
             "name": "owaspnodeapposdisk",
             "vhd": {
               "uri": "[concat('http://',variables('storageAccountName'),'.blob.core.windows.net/instances/',variables('appVMNamePrefix'), copyIndex(),'.vhd')]"

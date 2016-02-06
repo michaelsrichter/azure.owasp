@@ -143,7 +143,7 @@
       "dependsOn": [
         "[concat('Microsoft.Network/networkInterfaces/', variables('wafNicNamePrefix'), copyindex())]",
         "[concat('Microsoft.Compute/availabilitySets/', variables('wafAvailabilitySetName'))]",
-        "[concat('Microsoft.Compute/storageAccounts/', variables('storageAccountName'))]"
+        "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
       ],
       "properties": {
         "availabilitySet": {

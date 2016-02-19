@@ -1,6 +1,6 @@
 ﻿# Deploy a Load Balanced WAF
 
-[![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/)
+[![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmichaelsrichter%2Fazure.owasp%2FPublic%2Fazure.owasp.waf-lb-arm%2FTemplates%2FLoadBalanced-Master.json)
 
 This ARM solution is all you need to deploy a load balanced Barracuda Web Application Firewall (WAF) into an Azure VNet and have it
 proxy traffic to an application in the same VNet. 
